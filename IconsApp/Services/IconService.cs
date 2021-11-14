@@ -19,10 +19,10 @@ namespace IconsApp.Services
         public object GetAssociatedIcon(string path)
         => Icon.ExtractAssociatedIcon(path);
 
-        public IEnumerable<(int nr, BitmapSource image)> GetIcons(string path)
+        public IEnumerable<BitmapSource> GetIcons(string path)
         {
             var iconsCount = ExtractIconEx(path, 0, null, null, 0);
-            var images = new List<(int, BitmapSource)>();
+            var images = new List<BitmapSource>();
             Enumerable.Range(0, iconsCount).ToList().ForEach(i =>
             {
                 var licon = new IntPtr[1];
@@ -30,7 +30,7 @@ namespace IconsApp.Services
                 var icon = Icon.FromHandle(licon[0]);
                 var imageSource = Imaging.CreateBitmapSourceFromHIcon(licon[0], new System.Windows.Int32Rect(), BitmapSizeOptions.FromEmptyOptions());
                 DestroyIcon(licon[0]);
-                images.Add((i, imageSource));
+                images.Add(imageSource);
             });
 
             return images;

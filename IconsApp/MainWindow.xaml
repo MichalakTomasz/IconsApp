@@ -11,10 +11,18 @@
             <RowDefinition Height="30"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Button x:Name="otworzButton" Grid.Row="0" Grid.Column="0" Content="Otwórz" Click="otworzButton_Click"/>
+        <Button x:Name="otworzButton" Grid.Row="0" Grid.Column="0" Content="Otwórz" Command="{Binding  LoadIconsCommand}"/>
         <ScrollViewer Grid.Row="1">
-            <WrapPanel x:Name="wrapperImages"/>
+            <ListView ItemsSource="{Binding ImageSources}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Image 
+                                Source="{Binding}"
+                                Width="64"
+                                Height="64"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListView>
         </ScrollViewer>
     </Grid>
-    
 </Window>
