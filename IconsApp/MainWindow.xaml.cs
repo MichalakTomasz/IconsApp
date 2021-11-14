@@ -58,7 +58,7 @@ namespace IconsApp
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var img = (e.OriginalSource as MenuItem).Tag as BitmapSource;
+            var img = (e.OriginalSource as MenuItem).Tag as BitmapSource;//
             var saveDialog = new SaveFileDialog();
             saveDialog.ShowDialog();
             using var stream = new FileStream(saveDialog.FileName, FileMode.Create);
