@@ -1,17 +1,14 @@
-﻿using IconsApp.Services;
-using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.Win32;
 
 namespace IconsApp
 {
     public class SaveFileService : ISaveFileService
     {
+        public string Filter { get; set; }
         public string SaveFile()
         {
             var saveFile = new SaveFileDialog();
-            saveFile.Filter = Literals.ExtFilter;
+            saveFile.Filter = Filter;
             saveFile.ShowDialog();
             return saveFile.FileName;
         }
