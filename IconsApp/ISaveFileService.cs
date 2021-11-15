@@ -2,6 +2,6 @@
 {
     public interface ISaveFileService
     {
-        string SaveFile(string path);
+        string SaveFile();
     }
 }

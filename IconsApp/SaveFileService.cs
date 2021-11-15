@@ -8,7 +8,7 @@ namespace IconsApp
 {
     public class SaveFileService : ISaveFileService
     {
-        public string SaveFile(string path)
+        public string SaveFile()
         {
             var saveFile = new SaveFileDialog();
             saveFile.Filter = Literals.ExtFilter;

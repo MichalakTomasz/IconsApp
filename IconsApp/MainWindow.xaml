@@ -5,24 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IconsApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        x:Name="mainWindow">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition />
         </Grid.RowDefinitions>
         <Button x:Name="otworzButton" Grid.Row="0" Grid.Column="0" Content="Otwórz" Command="{Binding  LoadIconsCommand}"/>
-        <ScrollViewer Grid.Row="1">
-            <ListView ItemsSource="{Binding ImageSources}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Image 
-                                Source="{Binding}"
-                                Width="64"
-                                Height="64"/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListView>
-        </ScrollViewer>
+        <ListView 
+            ItemsSource="{Binding ImageSources}" 
+            Grid.Row="1" 
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            SelectedItem="{Binding SelectedItem}">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Image
+                        Source="{Binding}"
+                        Width="64"
+                        Height="64">
+                        <Image.ContextMenu>
+                            <ContextMenu DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource self}}">
+                                <MenuItem 
+                                    Header="Zapisz"
+                                    Command="{Binding SaveCommand, Mode=OneTime}"/>
+                            </ContextMenu>
+                        </Image.ContextMenu>
+                    </Image>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListView>
     </Grid>
 </Window>

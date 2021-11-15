@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -17,12 +18,14 @@ namespace IconsApp
         private IconService _iconService;
         private readonly OpenFileService _openFileService;
         private SaveFileService _saveFileService;
+        private SavePngService _savePngService;
 
         public MainWindowViewModel()
         {
             _iconService = new IconService();
             _openFileService = new OpenFileService();
             _saveFileService = new SaveFileService();
+            _savePngService = new SavePngService();
             LoadIconsCommand = new CommandHelper(e =>
             {
                 var path = _openFileService.OpenFile();
@@ -32,9 +35,16 @@ namespace IconsApp
                     ImageSources.Add(image);
                 });
             }, e => true);
+
+            SaveCommand = new CommandHelper(e =>
+            {
+                var path = _saveFileService.SaveFile();
+                _savePngService.Save(path, SelectedItem);
+            }, e => true);
         }
 
         public ICommand LoadIconsCommand { get; }
+        public ICommand SaveCommand { get; }
 
         private ObservableCollection<BitmapSource> _imageSource = 
             new ObservableCollection<BitmapSource>();
@@ -44,6 +54,17 @@ namespace IconsApp
             set
             {
                 _imageSource = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private BitmapSource _selectedItem;
+        public BitmapSource SelectedItem
+        {
+            get => _selectedItem;
+            set
+            {
+                _selectedItem = value;
                 OnPropertyChanged();
             }
         }
