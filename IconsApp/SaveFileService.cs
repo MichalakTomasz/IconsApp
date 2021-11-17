@@ -6,7 +6,7 @@ namespace IconsApp
     public class SaveFileService : ISaveImageService
     {
         private string _ext;
-
+        public string Filter { get; set; }
         public string SaveFile()
         {
             var saveFile = new SaveFileDialog();

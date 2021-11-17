@@ -39,21 +39,7 @@ namespace IconsApp
             {
                 var path = _saveFileService.SaveFile();
                 var ext = _saveFileService.SelectedExtension;
-                switch (ext.ToLower())
-                {
-                    case Literals.jpg:
-                        _saveJpegService.Save(path, SelectedItem);
-                        break;
-                    case Literals.jpeg:
-                        _saveJpegService.Save(path, SelectedItem);
-                        break;
-                    case Literals.png:
-                        _savePngService.Save(path, SelectedItem);
-                        break;
-                    case Literals.bmp:
-                        _saveBmpService.Save(path, SelectedItem);
-                        break;
-                }
+                SaveFile(path, ext);
             }, e => true);
 
             SaveAssociatedIconCommand = new CommandHelper(() =>
@@ -61,10 +47,31 @@ namespace IconsApp
                 var iconPath = _openFileService.OpenFile();
                 if (string.IsNullOrEmpty(iconPath))
                     return;
+                _saveFileService.Filter = Literals.ExtFilter;
                 var destinationPath  = _saveFileService.SaveFile();
+                var ext = _saveFileService.SelectedExtension;
                 var bitmapSource = _iconService.GetAssociatedIcon(iconPath);
-                _savePngService.Save(destinationPath, bitmapSource);
+                SaveFile(destinationPath, ext);
             });
+        }
+
+        private void SaveFile(string path, string ext)
+        {
+            switch (ext.ToLower())
+            {
+                case Literals.jpg:
+                    _saveJpegService.Save(path, SelectedItem);
+                    break;
+                case Literals.jpeg:
+                    _saveJpegService.Save(path, SelectedItem);
+                    break;
+                case Literals.png:
+                    _savePngService.Save(path, SelectedItem);
+                    break;
+                case Literals.bmp:
+                    _saveBmpService.Save(path, SelectedItem);
+                    break;
+            }
         }
 
         public ICommand LoadIconsCommand { get; }
