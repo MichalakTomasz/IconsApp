@@ -16,6 +16,7 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
             <RowDefinition />
+            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
         <Button Grid.Row="0" Content="Save icon associated to file" Command="{Binding  SaveAssociatedIconCommand}"/>
         <Button Grid.Row="1" Content="Open" Command="{Binding  LoadIconsCommand}"/>
@@ -48,5 +49,10 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListView>
+        <StatusBar Grid.Row="3">
+            <StatusBarItem 
+                Content="{Binding CurrentFile}"
+                HorizontalAlignment="Left"/>
+        </StatusBar>
     </Grid>
 </Window>

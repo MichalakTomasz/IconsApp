@@ -30,6 +30,7 @@ namespace IconsApp
                 var path = _openFileService.OpenFile();
                 if (string.IsNullOrEmpty(path))
                     return;
+                CurrentFile = path;
                 var images = _iconService.GetIcons(path);
                 images.ToList().ForEach(image => ImageSources.Add(image));
             }, e => true);
@@ -97,6 +98,17 @@ namespace IconsApp
             set
             {
                 _selectedItem = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _currentFile = "";
+        public string CurrentFile
+        {
+            get => _currentFile;
+            set
+            {
+                _currentFile = value;
                 OnPropertyChanged();
             }
         }
