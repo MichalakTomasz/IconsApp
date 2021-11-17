@@ -27,7 +27,6 @@ namespace IconsApp
             _saveBmpService = new SaveBmpService();
             LoadIconsCommand = new CommandHelper(e =>
             {
-                _openFileService.Filter = Literals.ExtFilter;
                 var path = _openFileService.OpenFile();
                 if (string.IsNullOrEmpty(path))
                     return;
