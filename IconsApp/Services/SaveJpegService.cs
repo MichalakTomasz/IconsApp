@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Media.Imaging;
 
 namespace IconsApp.Services
@@ -9,8 +10,10 @@ namespace IconsApp.Services
         {
             try
             {
-                var encoder = new SaveJpegService();
-                encoder.Save(path, bitmapSource);
+                using var stream  = new FileStream(path, FileMode.Create);
+                var encoder = new JpegBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
+                encoder.Save(stream);
                 return true;
             }
             catch (Exception)

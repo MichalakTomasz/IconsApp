@@ -36,6 +36,7 @@ namespace IconsApp
 
             SaveCommand = new CommandHelper(e =>
             {
+                _saveFileService.Filter = Literals.ExtFilter;
                 var path = _saveFileService.SaveFile();
                 var ext = _saveFileService.SelectedExtension;
                 SaveFile(path, ext);
