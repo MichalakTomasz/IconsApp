@@ -23,7 +23,6 @@ namespace IconsApp
             _savePngService = new SavePngService();
             LoadIconsCommand = new CommandHelper(e =>
             {
-                _openFileService.Filter = Literals.ExtFilter;
                 var path = _openFileService.OpenFile();
                 if (string.IsNullOrEmpty(path))
                     return;

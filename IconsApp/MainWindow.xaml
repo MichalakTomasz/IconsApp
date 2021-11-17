@@ -5,17 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IconsApp"
         mc:Ignorable="d"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         Title="MainWindow" Height="450" Width="800"
-        x:Name="mainWindow"
-        Tag="{Binding DataContext, RelativeSource={RelativeSource self}}">
-    <Grid>
+        x:Name="mainWindow">
+    <Window.Resources>
+        <local:MainWindowViewModel x:Key="viewModel"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource viewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
             <RowDefinition />
         </Grid.RowDefinitions>
         <Button Grid.Row="0" Content="Save icon associated to file" Command="{Binding  SaveAssociatedIconCommand}"/>
-        <Button Grid.Row="1" Content="Otwórz" Command="{Binding  LoadIconsCommand}"/>
+        <Button Grid.Row="1" Content="Open" Command="{Binding  LoadIconsCommand}"/>
         <ListView 
             ItemsSource="{Binding ImageSources}" 
             Grid.Row="2" 
@@ -33,10 +36,12 @@
                         Width="64"
                         Height="64">
                         <Image.ContextMenu>
-                            <ContextMenu DataContext="{Binding PlacementTarget.Tag, RelativeSource={RelativeSource self}}">
+                            <ContextMenu>
                                 <MenuItem 
+                                    DataContext="{StaticResource viewModel}"
                                     Header="Zapisz"
-                                    Command="{Binding SaveCommand, Mode=OneTime}"/>
+                                    Command="{Binding SaveCommand, Mode=OneTime}">
+                                </MenuItem>
                             </ContextMenu>
                         </Image.ContextMenu>
                     </Image>
