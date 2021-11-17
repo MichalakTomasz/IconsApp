@@ -10,7 +10,7 @@ namespace IconsApp
         public string SaveFile()
         {
             var saveFile = new SaveFileDialog();
-            saveFile.Filter = Literals.ExtFilter;
+            saveFile.Filter = Filter;
             saveFile.ShowDialog();
             _ext = Path.GetExtension(saveFile.FileName);
             return saveFile.FileName;

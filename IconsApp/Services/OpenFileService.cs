@@ -1,16 +1,14 @@
 ﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace IconsApp.Services
 {
     public class OpenFileService : IOpenFileService
     {
+        public string Filter { get; set; }
         public string OpenFile()
         {
             var openFile = new OpenFileDialog();
-            openFile.Filter = Literals.ExtFilter;
+            openFile.Filter = Filter;
             openFile.ShowDialog();
             return openFile.FileName;
         }

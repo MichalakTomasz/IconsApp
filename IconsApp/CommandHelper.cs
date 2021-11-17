@@ -17,6 +17,17 @@ namespace IconsApp
             _canExectue = canExectue;
         }
 
+        public CommandHelper(Action<object> execute)
+        {
+            _canExectue = _ => true;
+            _execute = execute;
+        }
+        public CommandHelper(Action execute)
+        {
+            _canExectue = _ => true;
+            _execute = _ => execute();
+        }
+
         public bool CanExecute(object parameter)
             => _canExectue.Invoke(parameter);
 

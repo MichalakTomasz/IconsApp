@@ -1,13 +1,8 @@
 ﻿using IconsApp.Services;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
@@ -15,7 +10,7 @@ namespace IconsApp
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        private IconService _iconService;
+        private readonly IconService _iconService;
         private readonly OpenFileService _openFileService;
         private SaveFileService _saveFileService;
         private SavePngService _savePngService;
@@ -32,7 +27,10 @@ namespace IconsApp
             _saveBmpService = new SaveBmpService();
             LoadIconsCommand = new CommandHelper(e =>
             {
+                _openFileService.Filter = Literals.ExtFilter;
                 var path = _openFileService.OpenFile();
+                if (string.IsNullOrEmpty(path))
+                    return;
                 var images = _iconService.GetIcons(path);
                 images.ToList().ForEach(image => ImageSources.Add(image));
             }, e => true);
@@ -57,10 +55,21 @@ namespace IconsApp
                         break;
                 }
             }, e => true);
+
+            SaveAssociatedIconCommand = new CommandHelper(() =>
+            {
+                var iconPath = _openFileService.OpenFile();
+                if (string.IsNullOrEmpty(iconPath))
+                    return;
+                var destinationPath  = _saveFileService.SaveFile();
+                var bitmapSource = _iconService.GetAssociatedIcon(iconPath);
+                _savePngService.Save(destinationPath, bitmapSource);
+            });
         }
 
         public ICommand LoadIconsCommand { get; }
         public ICommand SaveCommand { get; }
+        public ICommand SaveAssociatedIconCommand { get; }
 
         private ObservableCollection<BitmapSource> _imageSource = 
             new ObservableCollection<BitmapSource>();

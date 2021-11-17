@@ -2,6 +2,7 @@
 {
     public interface IOpenFileService
     {
+        string Filter { get; set; }
         string OpenFile();
     }
 }
