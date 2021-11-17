@@ -1,7 +1,8 @@
 ﻿namespace IconsApp
 {
-    public interface ISaveFileService
+    public interface ISaveImageService
     {
         string SaveFile();
+        string SelectedExtension { get; }
     }
 }

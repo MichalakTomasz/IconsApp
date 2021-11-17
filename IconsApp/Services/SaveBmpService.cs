@@ -1,17 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Windows.Media.Imaging;
 
 namespace IconsApp.Services
 {
-    public class SavePngService : ISaveImageService
+    public class SaveBmpService : ISaveImageService
     {
         public bool Save(string path, BitmapSource bitmapSource)
         {
             try
             {
                 using var stream = new FileStream(path, FileMode.Create);
-                var encoder = new PngBitmapEncoder();
+                var encoder = new BmpBitmapEncoder();
                 encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
                 encoder.Save(stream);
                 return true;

@@ -2,7 +2,7 @@
 
 namespace IconsApp.Services
 {
-    public interface ISavePngService
+    public interface ISaveImageService
     {
         bool Save(string path, BitmapSource bitmapSource);
     }

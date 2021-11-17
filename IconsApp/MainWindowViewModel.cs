@@ -19,6 +19,8 @@ namespace IconsApp
         private readonly OpenFileService _openFileService;
         private SaveFileService _saveFileService;
         private SavePngService _savePngService;
+        private SaveJpegService _saveJpegService;
+        private SaveBmpService _saveBmpService;
 
         public MainWindowViewModel()
         {
@@ -26,20 +28,34 @@ namespace IconsApp
             _openFileService = new OpenFileService();
             _saveFileService = new SaveFileService();
             _savePngService = new SavePngService();
+            _saveJpegService = new SaveJpegService();
+            _saveBmpService = new SaveBmpService();
             LoadIconsCommand = new CommandHelper(e =>
             {
                 var path = _openFileService.OpenFile();
                 var images = _iconService.GetIcons(path);
-                images.ToList().ForEach(image =>
-                {
-                    ImageSources.Add(image);
-                });
+                images.ToList().ForEach(image => ImageSources.Add(image));
             }, e => true);
 
             SaveCommand = new CommandHelper(e =>
             {
                 var path = _saveFileService.SaveFile();
-                _savePngService.Save(path, SelectedItem);
+                var ext = _saveFileService.SelectedExtension;
+                switch (ext.ToLower())
+                {
+                    case Literals.jpg:
+                        _saveJpegService.Save(path, SelectedItem);
+                        break;
+                    case Literals.jpeg:
+                        _saveJpegService.Save(path, SelectedItem);
+                        break;
+                    case Literals.png:
+                        _savePngService.Save(path, SelectedItem);
+                        break;
+                    case Literals.bmp:
+                        _saveBmpService.Save(path, SelectedItem);
+                        break;
+                }
             }, e => true);
         }
 
