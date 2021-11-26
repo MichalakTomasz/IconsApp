@@ -10,21 +10,27 @@ namespace IconsApp
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        private readonly IconService _iconService;
-        private readonly OpenFileService _openFileService;
-        private SaveFileService _saveFileService;
-        private SavePngService _savePngService;
-        private SaveJpegService _saveJpegService;
-        private SaveBmpService _saveBmpService;
+        private readonly IIconService _iconService;
+        private readonly IOpenFileService _openFileService;
+        private ISaveFileService _saveFileService;
+        private ISaveImageService _savePngService;
+        private ISaveImageService _saveJpegService;
+        private ISaveImageService _saveBmpService;
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(
+            IIconService iconService,
+            IOpenFileService openFileService,
+            ISaveFileService saveFileService,
+            ISaveImageService savePngService,
+            ISaveImageService saveJpgService,
+            ISaveImageService saveBmpService)
         {
-            _iconService = new IconService();
-            _openFileService = new OpenFileService();
-            _saveFileService = new SaveFileService();
-            _savePngService = new SavePngService();
-            _saveJpegService = new SaveJpegService();
-            _saveBmpService = new SaveBmpService();
+            _iconService = iconService;
+            _openFileService = openFileService;
+            _saveFileService =saveFileService;
+            _savePngService = savePngService;
+            _saveJpegService = saveJpgService;
+            _saveBmpService = saveBmpService;
             LoadIconsCommand = new CommandHelper(e =>
             {
                 var path = _openFileService.OpenFile();

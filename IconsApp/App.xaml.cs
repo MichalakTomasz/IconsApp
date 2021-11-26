@@ -13,5 +13,10 @@ namespace IconsApp
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            var bootstrapper = new IconsAppBootstrapper();
+            bootstrapper.Run();
+        }
     }
 }

@@ -7,11 +7,9 @@
         mc:Ignorable="d"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         Title="MainWindow" Height="450" Width="800"
-        x:Name="mainWindow">
-    <Window.Resources>
-        <local:MainWindowViewModel x:Key="viewModel"/>
-    </Window.Resources>
-    <Grid DataContext="{StaticResource viewModel}">
+        x:Name="mainWindow"
+        local:Bootsrtrapper.DataContext="MainWindowViewModel">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>

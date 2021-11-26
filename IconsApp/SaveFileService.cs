@@ -3,7 +3,7 @@ using System.IO;
 
 namespace IconsApp
 {
-    public class SaveFileService : ISaveImageService
+    public class SaveFileService : ISaveFileService
     {
         private string _ext;
         public string Filter { get; set; }
