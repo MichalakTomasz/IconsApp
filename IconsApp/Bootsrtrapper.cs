@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
 using Unity;
 
 namespace IconsApp
@@ -34,11 +35,15 @@ namespace IconsApp
         private static void OnDataContextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var viewModelClass = Assembly.GetExecutingAssembly().GetTypes().FirstOrDefault(a => a.Name == e.NewValue.ToString());
-            var window = d as Window;
-            Container.RegisterType(viewModelClass);
-            var viewModel = Container.Resolve(viewModelClass);
-            if (viewModel != null && window != null)
-                window.DataContext = viewModel;
+            var control = d as Control;
+            if (control.DataContext == null || !control.DataContext.GetType().Equals(viewModelClass))
+            {
+                if (!Container.IsRegistered(viewModelClass))
+                    Container.RegisterSingleton(viewModelClass);
+                    var viewModel = Container.Resolve(viewModelClass);
+                if (viewModel != null && control != null)
+                    control.DataContext = viewModel;
+            }
         }
     }
 }

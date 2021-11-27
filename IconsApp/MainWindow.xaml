@@ -37,7 +37,7 @@
                         <Image.ContextMenu>
                             <ContextMenu>
                                 <MenuItem 
-                                    DataContext="{StaticResource viewModel}"
+                                    local:Bootsrtrapper.DataContext="MainWindowViewModel"
                                     Header="Zapisz"
                                     Command="{Binding SaveCommand, Mode=OneTime}">
                                 </MenuItem>

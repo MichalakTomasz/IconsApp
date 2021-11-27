@@ -15,7 +15,6 @@ namespace IconsApp
             Container.RegisterType<ISaveImageService, SavePngService>();
             Container.RegisterType<ISaveImageService, SaveJpegService>();
             Container.RegisterType<ISaveImageService, SaveBmpService>();
-            Container.RegisterSingleton<MainWindow>();
         }
     }
 }
