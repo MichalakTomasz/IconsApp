@@ -1,4 +1,4 @@
-﻿namespace IconsApp
+﻿namespace IconsApp.Services
 {
     public interface ISaveFileService
     {
