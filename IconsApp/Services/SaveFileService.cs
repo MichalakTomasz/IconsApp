@@ -1,7 +1,7 @@
 ﻿using Microsoft.Win32;
 using System.IO;
 
-namespace IconsApp
+namespace IconsApp.Services
 {
     public class SaveFileService : ISaveFileService
     {
